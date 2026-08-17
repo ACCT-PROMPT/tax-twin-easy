@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tax Twin Easy</title>
+
+    <!-- Tailwind CSS (Play CDN — JIT-compiles utility classes in the browser, no build step) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Noto Sans Thai: cross-platform fallback for the Thai system font (Sukhumvit is Apple-exclusive and can't be embedded) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Import map: lets plain `import react from "react"` resolve in the browser -->
+    <script type="importmap">
+      {
+        "imports": {
+          "react": "https://esm.sh/react@19.0.1",
+          "react-dom/client": "https://esm.sh/react-dom@19.0.1/client?deps=react@19.0.1",
+          "react/jsx-runtime": "https://esm.sh/react@19.0.1/jsx-runtime",
+          "lucide-react": "https://esm.sh/lucide-react@0.546.0?deps=react@19.0.1",
+          "motion/react": "https://esm.sh/motion@12.23.24/react?deps=react@19.0.1,react-dom@19.0.1",
+          "react-markdown": "https://esm.sh/react-markdown@10.1.0?deps=react@19.0.1",
+          "@supabase/supabase-js": "https://esm.sh/@supabase/supabase-js@2"
+        }
+      }
+    </script>
+
+    <!-- Babel standalone: transforms the JSX/TypeScript in app.tsx directly in the browser -->
+    <script src="https://unpkg.com/@babel/standalone@7.26.4/babel.min.js"></script>
+
+    <style>
+      html {
+        font-size: 16px;
+      }
+      @media (min-width: 640px) {
+        html {
+          font-size: 17px;
+        }
+      }
+      @media (min-width: 1024px) {
+        html {
+          font-size: 18px;
+        }
+      }
+      /* -apple-system picks up real Sukhumvit for Thai glyphs on iOS/macOS automatically;
+         Noto Sans Thai (loaded above) covers every other platform with a similar loopless style. */
+      .font-sans {
+        font-family: -apple-system, BlinkMacSystemFont, "Noto Sans Thai", "Segoe UI", Tahoma, sans-serif !important;
+      }
+      /* Custom overrides to scale up small texts for better accessibility/legibility,
+         kept as distinct steps so labels, captions, and body text still read as a hierarchy. */
+      .text-\[9px\] {
+        font-size: 0.8125rem !important;
+      }
+      .text-\[10px\] {
+        font-size: 0.875rem !important;
+      }
+      .text-\[11px\] {
+        font-size: 0.9375rem !important;
+      }
+      .text-xs {
+        font-size: 1rem !important;
+      }
+      .text-sm {
+        font-size: 1.0625rem !important;
+      }
+      .text-base {
+        font-size: 1.1875rem !important;
+      }
+
+      /* Print-only tax summary sheet (#tax-print-sheet in app.tsx) — everything
+         else is hidden while printing/saving as PDF, only the sheet shows. */
+      @media print {
+        body * {
+          visibility: hidden !important;
+        }
+        #tax-print-sheet,
+        #tax-print-sheet * {
+          visibility: visible !important;
+        }
+        #tax-print-sheet {
+          position: absolute !important;
+          left: 0 !important;
+          top: 0 !important;
+          width: 100% !important;
+        }
+        @page {
+          margin: 15mm;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel" data-type="module" data-presets="react,typescript" src="./app.tsx"></script>
+  </body>
+</html>
